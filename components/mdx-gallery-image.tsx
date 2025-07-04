@@ -17,10 +17,13 @@ interface MdxGalleryImageProps {
 export function MdxGalleryImage(props: MdxGalleryImageProps) {
 	const { openCarousel } = useGallery();
 	const { src, alt = "", width = 800, height = 600 } = props;
-	const imageSrc = src.src;
 	const handleClick = () => {
 		const allImages = Array.from(document.querySelectorAll("img")).map(
-			(img) => img.getAttribute("src") || "",
+			(img) =>
+				img
+					.getAttribute("src")
+					?.split("&")[0]
+					.replaceAll("/_next/image?url=", "") || "",
 		);
 		const allAltTexts = Array.from(document.querySelectorAll("img")).map(
 			(img) => {
@@ -32,6 +35,7 @@ export function MdxGalleryImage(props: MdxGalleryImageProps) {
 				};
 			},
 		);
+		const imageSrc = src.src.replaceAll("/", "%2F");
 		const index = allImages.indexOf(imageSrc);
 		openCarousel(index >= 0 ? index : 0, allImages, allAltTexts);
 	};
