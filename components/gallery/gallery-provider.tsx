@@ -3,11 +3,17 @@
 import type React from "react"
 import { createContext, useCallback, useContext, useMemo, useState } from "react"
 
+interface ImageObj {
+  src: string;
+  alt: string;
+}
+
 interface GalleryContextValue {
   images: string[]
+  altTexts: ImageObj[]
   isOpen: boolean
   startIndex: number
-  openCarousel: (index: number, imgs?: string[]) => void
+  openCarousel: (index: number, imgs?: string[], altTexts?: ImageObj[]) => void
   closeCarousel: () => void
 }
 
@@ -25,12 +31,14 @@ const GalleryContext = createContext<GalleryContextValue | undefined>(undefined)
 
 export function GalleryProvider({ children }: { children: React.ReactNode }) {
   const [images, setImages] = useState<string[]>(FALLBACK_IMAGES)
+  const [altTexts, setAltTexts] = useState<ImageObj[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [startIndex, setStartIndex] = useState(0)
 
   const openCarousel = useCallback(
-    (index: number, imgs: string[] = images) => {
+    (index: number, imgs: string[] = images, altTexts: ImageObj[] = []) => {
       setImages(imgs)
+      setAltTexts(altTexts)
       setStartIndex(index)
       setIsOpen(true)
     },
@@ -42,8 +50,8 @@ export function GalleryProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const value = useMemo(
-    () => ({ images, isOpen, startIndex, openCarousel, closeCarousel }),
-    [images, isOpen, startIndex, openCarousel, closeCarousel],
+    () => ({ images, altTexts, isOpen, startIndex, openCarousel, closeCarousel }),
+    [images, altTexts, isOpen, startIndex, openCarousel, closeCarousel],
   )
 
   return <GalleryContext.Provider value={value}>{children}</GalleryContext.Provider>

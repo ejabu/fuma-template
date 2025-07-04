@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import GalleryModal from "./gallery/gallery-modal";
-import { GalleryProvider, useGallery } from "./gallery/gallery-provider";
+import { useGallery } from "./gallery/gallery-provider";
 
 interface MdxGalleryImageProps {
 	src: {
@@ -23,8 +22,18 @@ export function MdxGalleryImage(props: MdxGalleryImageProps) {
 		const allImages = Array.from(document.querySelectorAll("img")).map(
 			(img) => img.getAttribute("src") || "",
 		);
+		const allAltTexts = Array.from(document.querySelectorAll("img")).map(
+			(img) => {
+				const alt = img.getAttribute("alt") || "";
+				const src = img.getAttribute("src") || "";
+				return {
+					alt: alt ?? "-",
+					src,
+				};
+			},
+		);
 		const index = allImages.indexOf(imageSrc);
-		openCarousel(index >= 0 ? index : 0, allImages);
+		openCarousel(index >= 0 ? index : 0, allImages, allAltTexts);
 	};
 	return (
 		<button
@@ -41,7 +50,6 @@ export function MdxGalleryImage(props: MdxGalleryImageProps) {
 				className="transition-transform cursor-pointer duration-300 ease-in-out group-hover:scale-105 rounded-lg shadow"
 			/>
 			<span className="text-black -mt-2 pb-8 block">{alt}</span>
-			{/* <br /> */}
 		</button>
 	);
 }

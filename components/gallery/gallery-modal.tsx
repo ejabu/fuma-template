@@ -6,7 +6,8 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useGallery } from "./gallery-provider";
 
 export default function GalleryModal() {
-	const { images, isOpen, closeCarousel, startIndex } = useGallery();
+	const { images, altTexts, isOpen, closeCarousel, startIndex } =
+		useGallery();
 	const [emblaRef, emblaApi] = useEmblaCarousel({
 		startIndex,
 		skipSnaps: false,
@@ -83,19 +84,26 @@ export default function GalleryModal() {
 					onClick={(e) => e.stopPropagation()}
 				>
 					<div className="flex w-full">
-						{images.map((src, i) => (
-							<div
-								key={i}
-								className="flex-[0_0_100%] min-w-0 flex items-center justify-center p-4"
-							>
-								<img
-									src={src || "/placeholder.svg"}
-									alt={`Gallery image ${i + 1}`}
-									className="cursor-grab xmax-h-[90vh] h-full max-w-full w-auto xh-auto object-contain rounded-lg shadow-2xl"
-									loading="lazy"
-								/>
-							</div>
-						))}
+						{altTexts.map(({ src, alt }, i) => {
+							return (
+								<div
+									key={i}
+									className="flex-[0_0_100%] min-w-0 flex flex-col items-center justify-center p-4"
+								>
+									<img
+										src={src || "/placeholder.svg"}
+										alt={`Gallery image ${i + 1}`}
+										className="cursor-grab xmax-h-[90vh] h-full max-w-full w-auto xh-auto object-contain rounded-lg shadow-2xl"
+										loading="lazy"
+									/>
+									{alt && (
+										<div className="text-white mt-4">
+											{alt}
+										</div>
+									)}
+								</div>
+							);
+						})}
 					</div>
 				</div>
 
