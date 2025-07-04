@@ -5,7 +5,7 @@ import { AsideLink } from "@/components/ui/aside-link";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchContext } from "fumadocs-ui/provider";
 import { usePathname } from "next/navigation";
-import { contents, examples } from "./sidebar-content";
+import { contents } from "./sidebar-content";
 import { ChevronDownIcon, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -31,7 +31,7 @@ export default function ArticleLayout() {
 		setCurrentOpen(getDefaultValue());
 	}, [pathname]);
 
-	const cts = group === "docs" ? contents : examples;
+	const cts = contents;
 
 	return (
 		<div className={cn("fixed top-0")}>
@@ -63,7 +63,7 @@ export default function ArticleLayout() {
 							{cts.map((item, index) => (
 								<div key={item.title}>
 									<button
-										className="border-b w-full hover:underline border-lines text-sm px-5 py-2.5 text-left flex items-center gap-2"
+										className="cursor-pointer border-b w-full hover:underline border-lines text-sm px-5 py-2.5 text-left flex items-center gap-2"
 										onClick={() => {
 											if (currentOpen === index) {
 												setCurrentOpen(-1);
@@ -72,7 +72,7 @@ export default function ArticleLayout() {
 											}
 										}}
 									>
-										<item.Icon className="size-5" />
+										{item.Icon && <item.Icon className="size-4" />}
 										<span className="grow">
 											{item.title}
 										</span>
@@ -108,7 +108,7 @@ export default function ArticleLayout() {
 											>
 												<motion.div className="text-sm">
 													{item.list.map(
-														(listItem, j) => (
+														(listItem) => (
 															<div
 																key={
 																	listItem.title
@@ -143,7 +143,7 @@ export default function ArticleLayout() {
 																			activeClassName="[&>div>div]:!bg-fd-muted"
 																		>
 																			<div className="min-w-4">
-																				<listItem.icon className="text-stone-950 dark:text-white" />
+																				{listItem.Icon && <listItem.Icon className="text-stone-950 dark:text-white size-3" />}
 																			</div>
 																			{
 																				listItem.title

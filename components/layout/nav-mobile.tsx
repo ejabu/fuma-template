@@ -8,7 +8,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { contents, examples } from "./sidebar-content";
+import { contents } from "./sidebar-content";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { navMenu } from "@/components/layout/nav-bar";
@@ -149,7 +149,7 @@ function DocsNavBarContent() {
 	const { toggleNavbar } = useNavbarMobile();
 	if (!pathname.startsWith("/docs")) return null;
 
-	const content = pathname.startsWith("/docs/examples") ? examples : contents;
+	const content = contents;
 
 	return (
 		<>
@@ -181,7 +181,7 @@ function DocsNavBarContent() {
 										</div>
 									) : (
 										<div className="flex items-center gap-2">
-											<child.icon />
+											{child.Icon && <child.Icon />}
 											{child.title}
 										</div>
 									)}
