@@ -7,6 +7,8 @@
 	--fd-nav-height: 56px;
 	--fd-tocnav-height: 0px;
 	--background: oklch(1 0 0);
+	--color-fd-secondary: #fafafa;
+	--color-fd-card: var(--color-fd-secondary);
 
 	--foreground: oklch(0.147 0.004 49.25);
 
@@ -54,7 +56,8 @@
 
 	--chart-5: oklch(0.769 0.188 70.08);
 
-	--radius: 0.2rem;
+	/* --radius: 0.2rem; */
+	--radius: 0rem;
 
 	--sidebar: oklch(0.985 0.001 106.423);
 
