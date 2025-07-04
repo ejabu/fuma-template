@@ -40,20 +40,23 @@ export function MdxGalleryImage(props: MdxGalleryImageProps) {
 		openCarousel(index >= 0 ? index : 0, allImages, allAltTexts);
 	};
 	return (
-		<button
-			type="button"
-			onClick={handleClick}
-			className="group focus:outline-none"
-		>
-			<Image
-				src={src}
-				alt={alt}
-				draggable={false}
-				width={width}
-				height={height}
-				className="transition-transform cursor-pointer duration-300 ease-in-out group-hover:scale-105 rounded-lg shadow"
-			/>
+		<div className="flex flex-col justify-center items-center">
+			<button
+				type="button"
+				onClick={handleClick}
+				className="group focus:outline-none flex justify-center items-center transition-transform cursor-pointer duration-300"
+			>
+				<Image
+					src={src}
+					alt={alt}
+					draggable={false}
+					width={width}
+					height={height}
+					className="max-w-1/2 transition-transform cursor-pointer duration-300 ease-in-out text-center group-hover:scale-105"
+					// className="max-h-16 w-auto transition-transform cursor-pointer duration-300 ease-in-out group-hover:scale-105 rounded-lg shadow aspect-ratio"
+				/>
+			</button>
 			<span className="text-black -mt-2 pb-8 block">{alt}</span>
-		</button>
+		</div>
 	);
 }
