@@ -68,8 +68,8 @@ export const contents: Content[] = [
 				),
 			},
 			{
-				title: "Comparison",
-				href: "/docs/comparison",
+				title: "With Image",
+				href: "/docs/with-image",
 				icon: () => (
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -87,8 +87,8 @@ export const contents: Content[] = [
 				),
 			},
 			{
-				title: "Installation",
-				href: "/docs/installation",
+				title: "With Card",
+				href: "/docs/with-card",
 				icon: () => (
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
